@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function generateLottoNumbers() {
+            var numbers = [];
+
+            while (numbers.length < 6) {
+                var randomNumber = Math.floor(Math.random() * 45) + 1;
+
+                if (numbers.indexOf(randomNumber) === -1) {
+                    numbers.push(randomNumber);
+                }
+            }
+
+            return numbers;
+        }
+
+        var lottoNumbers = generateLottoNumbers();
+        document.write(lottoNumbers);
+
+    </script>
+</body>
+
+</html>

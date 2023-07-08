@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<input type="text" id="autocomplete" oninput="myAutocomplete(this)">
+
+<div id="autocomplete-results"></div>
+
+    <script>
+        var words = ["Apple", "Banana", "Cat", "Dog", "Elephant", "Fish", "Giraffe", "Hippo", "Iguana", "Jackal"];
+
+        function myAutocomplete(input) {
+            var value = input.value;
+            var autocompleteResults = document.getElementById("autocomplete-results");
+
+            // clear any existing results
+            autocompleteResults.innerHTML = "";
+
+            // find matches and add them to the results div
+            for (var i = 0; i < words.length; i++) {
+                if (words[i].startsWith(value) && value) {
+                    var result = document.createElement("div");
+                    result.textContent = words[i];
+                    result.addEventListener("click", function () {
+                        input.value = this.textContent;
+                        autocompleteResults.innerHTML = "";
+                    });
+                    autocompleteResults.appendChild(result);
+                }
+            }
+        }   
+
+    </script>
+    
+
+
+
+</body>
+</html>

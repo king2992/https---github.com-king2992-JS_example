@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <input type="text" id="inputId" value="">
+    <input type="password" id="inputPw" value="">
+    <button onclick="loginValid()">로그인</button>
+
+
+    <script>
+        var myId = 'koreaIT';
+        var myPw = '1234';
+
+
+        function loginValid() {
+            var inputId = document.getElementById("inputId").value;
+            var inputPw = document.getElementById("inputPw").value;
+
+            console.log(inputId)
+            console.log(inputPw)
+            if (inputId == '' || inputId == null) {
+                alert('아이디를 입력해주세요.');
+                return;
+            }
+            if (inputPw == '' || inputPw == null) {
+                alert('비밀번호를 입력해주세요.');
+                return;
+            }
+
+            if (myId == inputId && myPw == inputPw) {
+                alert("로그인 성공입니다.");
+            } else {
+                notValid("아이디 또는 비밀번호가 일치하지 않습니다.");
+            }
+        }
+
+        function notValid(msg){
+            document.getElementById("inputId").value = "";
+            document.getElementById("inputPw").value = "";
+            alert(msg);
+        }
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>오늘의 팝업</h1>
+<p>내용이 여기에 들어갑니다.</p>
+<button onclick="closePopup()">오늘 하루 보지 않기</button>
+
+<script>
+function closePopup() {
+    var date = new Date();
+    date.setTime(date.getTime() + (24 * 60 * 60 * 1000)); // 쿠키 만료 시간을 하루로 설정
+    document.cookie = "popupSeen=yes; expires=" + date.toUTCString() + "; path=/"; // 쿠키 설정
+    window.close();
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button type="button" onclick="addStudent()">학생 추가</button>
+    <button type="button" onclick="modStudent()">학생 수정</button>
+    <button type="button" onclick="delStudent()">학생 삭제</button>
+    <button type="button" onclick="printStudents()">학생 목록 출력</button>
+
+    <script>
+      var students = [{ name: "소민", age: 100, address: "제주도" }];
+
+      function printStudents() {
+        for (var i = 0; i < students.length; i++) {
+          for (var key in students[i]) {
+            console.log(students[i][key]);
+          }
+          console.log("----------------");
+        }
+      }
+
+      function addStudent() {
+        var student = {};
+        student.name = prompt("학생의 이름을 입력해주세요.");
+        student.age = prompt("학생의 나이를 입력해주세요.");
+        student.address = prompt("학생의 주소를 입력해주세요.");
+
+        students.push(student);
+
+        console.log(student);
+      }
+
+      function delStudent() {
+        var delIdx = prompt("삭제할 배열의 인덱스번호를 입력해주세요.");
+
+        if(delIdx > students.length-1){
+            alert("유효한 인덱스가 아닙니다.");
+            return;
+        }
+
+        if (confirm("정말로 삭제하시겠습니까?")) {
+          students.splice(delIdx, 1);
+        }
+      }
+
+      function modStudent(){
+        var idx = prompt("수정할 배열의 인덱스번호를 입력해주세요.");
+        var modName = prompt("수정할 이름을 입력해주세요.");
+        var modAge = prompt("수정할 나이를 입력해주세요.");
+        var modAddress = prompt("수정할 주소를 입력해주세요.");
+
+        if(idx > students.length-1){
+            alert("유효한 인덱스가 아닙니다.");
+            return;
+        }
+
+        students[idx].name = modName;
+        students[idx].age = modAge;
+        students[idx].address = modAddress;
+      }
+    </script>
+  </body>
+</html>

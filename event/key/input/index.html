@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="myInput">
+    <!-- 입력 필드 -->
+
+    <script>
+        const input = document.getElementById('myInput');
+        // input 요소 가져오기
+
+        input.addEventListener('input', function (event) {
+            console.log('Input value:', event.target.value);
+            // 입력 필드 값이 변경될 때마다 콘솔에 값 출력
+        });
+
+        input.addEventListener('change', function (event) {
+            console.log('Change value:', event.target.value);
+            // 입력 필드의 값이 변경된 후 포커스를 잃을 때 콘솔에 값 출력
+        });
+
+        input.addEventListener('focus', function () {
+            console.log('Input focused');
+            // 입력 필드가 포커스를 얻을 때 콘솔에 'Input focused' 출력
+        });
+
+        input.addEventListener('blur', function () {
+            console.log('Input blurred');
+            // 입력 필드가 포커스를 잃을 때 콘솔에 'Input blurred' 출력
+        });
+    </script>
+
+
+</body>
+
+</html>

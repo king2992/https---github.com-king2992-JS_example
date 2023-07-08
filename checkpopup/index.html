@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<script>
+function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+function openPopup() {
+    // var popupWindow = window.open('', 'popupWindow', 'width=400,height=300');
+    // popupWindow.document.write("<h1>오늘의 팝업</h1>");
+    // popupWindow.document.write("<p>내용이 여기에 들어갑니다.</p>");
+    // popupWindow.document.write("<button onclick='closePopup()'>오늘 하루 보지 않기</button>");
+
+    var popupWindow = window.open('popup.html', 'popupWindow', 'width=400,height=300');
+}
+
+// function closePopup() {
+//     setCookie('popupSeen', 'yes', 1);
+//     window.close();
+// }
+
+function checkPopup() {
+    var popupSeen = getCookie('popupSeen');
+    if (!popupSeen) {
+        openPopup();
+    }
+}
+
+window.addEventListener('DOMContentLoaded', checkPopup);
+</script>
+
+</body>
+</html>

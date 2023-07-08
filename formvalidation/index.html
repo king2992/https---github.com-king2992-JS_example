@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .error {
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="registrationForm">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+            <div class="error" id="nameError">Name is required.</div>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email">
+            <div class="error" id="emailError">Valid email is required.</div>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+            <div class="error" id="passwordError">Password is required.</div>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+<script>
+    var form = document.getElementById('registrationForm');
+    form.addEventListener('submit', function (event) {
+        event.preventDefault(); // prevents form from submitting immediately
+
+        // hide errors
+        document.getElementById('nameError').style.display = 'none';
+        document.getElementById('emailError').style.display = 'none';
+        document.getElementById('passwordError').style.display = 'none';
+
+        var isValid = true;
+
+        // check if name is filled
+        if (form.name.value === '') {
+            document.getElementById('nameError').style.display = 'block';
+            isValid = false;
+        }
+
+        // check if email is valid
+        if (!/^\S+@\S+\.\S+$/.test(form.email.value)) {
+            document.getElementById('emailError').style.display = 'block';
+            isValid = false;
+        }
+
+        // check if password is filled
+        if (form.password.value === '') {
+            document.getElementById('passwordError').style.display = 'block';
+            isValid = false;
+        }
+
+        // if all fields are valid, submit form
+        if (isValid) {
+            form.submit();
+        }
+    });
+
+</script>
+</body>
+</html>

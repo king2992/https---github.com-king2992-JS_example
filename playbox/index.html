@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>박스 추가 및 삭제</title>
+  <style>
+    .box-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: #f2f2f2;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      color: #333;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    }
+
+    .box:hover {
+      background-color: #e2e2e2;
+      transform: scale(1.05);
+    }
+
+    .delete-button {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      width: 20px;
+      height: 20px;
+      background-color: #f2f2f2;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #999;
+      transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    }
+
+    .delete-button:hover {
+      background-color: #e2e2e2;
+      color: #666;
+    }
+
+    .add-button {
+      padding: 10px 20px;
+      background-color: #03c75a;
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    .add-button:hover {
+      background-color: #02ac4a;
+    }
+  </style>
+</head>
+<body>
+  <div class="box-container" id="container"></div>
+  <button class="add-button" id="addButton">박스 추가</button>
+
+  <script>
+    const container = document.getElementById('container');
+    const addButton = document.getElementById('addButton');
+
+    let boxCount = 0;
+
+    addButton.addEventListener('click', function() {
+      createBox();
+    });
+
+    function createBox() {
+      const box = document.createElement('div');
+      const deleteButton = document.createElement('button');
+
+      boxCount++;
+      box.className = 'box';
+      box.textContent = 'Box ' + boxCount;
+
+      deleteButton.className = 'delete-button';
+      deleteButton.textContent = 'X';
+
+      deleteButton.addEventListener('click', function() {
+        deleteBox(box);
+      });
+
+      box.appendChild(deleteButton);
+      container.appendChild(box);
+    }
+
+    function deleteBox(box) {
+      box.remove();
+    }
+  </script>
+</body>
+</html>
