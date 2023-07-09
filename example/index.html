@@ -7,9 +7,14 @@
 
 <body>
     <script>
-        document.addEventListener('resize', function(){
-            console.log("resize")
-        })
+        var input = document.createElement('input');
+        input.value = "myId";
+        input.readOnly = false;
+        input.setAttribute('maxlength', 10);
+        input.setAttribute('uniq-id', 1);
+        document.body.appendChild(input);
+
+        console.log(input.getAttribute('uniq-id'));
 
     </script>
 </body>
