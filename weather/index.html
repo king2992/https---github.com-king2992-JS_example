@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>날씨 정보</title>
+    <style>
+        /* 스타일 설정 */
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .weather-info {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .weather-info img {
+            width: 80px;
+        }
+
+        .weather-info p {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .weather-info span {
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>날씨 정보</h1>
+        <div class="weather-info">
+            <img id="weatherIcon" src="" alt="날씨 아이콘">
+            <p id="temperature"></p>
+            <span id="location"></span>
+        </div>
+    </div>
+
+    <script>
+        const weatherIcon = document.getElementById('weatherIcon');
+        const temperatureElement = document.getElementById('temperature');
+        const locationElement = document.getElementById('location');
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(getWeatherInfo);
+        } else {
+            showError('위치 정보를 지원하지 않는 브라우저입니다.');
+        }
+
+        function getWeatherInfo(position) {
+            const { latitude, longitude } = position.coords;
+            const apiKey = 'YOUR_API_KEY';
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const { main, weather, name } = data;
+
+                    const temperature = Math.round(main.temp);
+                    const icon = weather[0].icon;
+                    const location = name;
+
+                    weatherIcon.src = `https://openweathermap.org/img/wn/${icon}.png`;
+                    temperatureElement.textContent = `${temperature}°C`;
+                    locationElement.textContent = location;
+                })
+                .catch(error => {
+                    showError('날씨 정보를 가져오는데 실패했습니다.');
+                });
+        }
+
+        function showError(message) {
+            const container = document.querySelector('.container');
+            const errorElement = document.createElement('p');
+            errorElement.textContent = message;
+            errorElement.style.color = '#ff3d3d';
+            container.appendChild(errorElement);
+        }
+    </script>
+</body>
+</html>

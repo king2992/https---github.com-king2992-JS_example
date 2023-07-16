@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>간단한 계산기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 10px;
+        }
+
+        .input-group label {
+            display: inline-block;
+            width: 100px;
+            font-weight: bold;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 200px;
+            padding: 5px;
+        }
+
+        .result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>간단한 계산기</h1>
+        <div class="input-group">
+            <label>첫 번째 숫자:</label>
+            <input type="number" id="number1">
+        </div>
+        <div class="input-group">
+            <label>두 번째 숫자:</label>
+            <input type="number" id="number2">
+        </div>
+        <div class="input-group">
+            <label>연산자:</label>
+            <select id="operator">
+                <option value="+">더하기 (+)</option>
+                <option value="-">빼기 (-)</option>
+                <option value="*">곱하기 (*)</option>
+                <option value="/">나누기 (/)</option>
+            </select>
+        </div>
+        <button onclick="calculate()">계산하기</button>
+        <button onclick="clearInputs()">클리어</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculate() {
+            const number1 = parseInt(document.getElementById('number1').value);
+            const number2 = parseInt(document.getElementById('number2').value);
+            const operator = document.getElementById('operator').value;
+            const result = document.getElementById('result');
+
+            let calculationResult;
+            if (operator === '+') {
+                calculationResult = number1 + number2;
+            } else if (operator === '-') {
+                calculationResult = number1 - number2;
+            } else if (operator === '*') {
+                calculationResult = number1 * number2;
+            } else if (operator === '/') {
+                calculationResult = number1 / number2;
+            } else {
+                result.innerHTML = '<p>유효하지 않은 연산자입니다.</p>';
+                return;
+            }
+
+            result.innerHTML = `<p>결과: ${calculationResult}</p>`;
+        }
+
+        function clearInputs() {
+            document.getElementById('number1').value = '';
+            document.getElementById('number2').value = '';
+            document.getElementById('operator').selectedIndex = 0;
+            document.getElementById('result').innerHTML = '';
+        }
+    </script>
+</body>
+</html>

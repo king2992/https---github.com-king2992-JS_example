@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>타이머</title>
+    <style>
+        /* 스타일 설정 */
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 10px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 5px;
+        }
+
+        .timer {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-group button {
+            margin: 0 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #4287f5;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-group button:hover {
+            background-color: #3366cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>타이머</h1>
+        <div class="input-group">
+            <input type="number" id="minutesInput" placeholder="분">
+            <input type="number" id="secondsInput" placeholder="초">
+        </div>
+        <div class="timer" id="timer">00:00</div>
+        <div class="btn-group">
+            <button onclick="startTimer()">시작</button>
+            <button onclick="pauseTimer()">일시정지</button>
+            <button onclick="resumeTimer()">이어서 시작</button>
+            <button onclick="resetTimer()">초기화</button>
+        </div>
+    </div>
+
+    <script>
+        // 타이머 변수
+        let timerInterval;
+        let minutes = 0;
+        let seconds = 0;
+        let isPaused = true;
+        let savedTotalSeconds = 0;
+        let remainingSeconds = 0;
+
+        // 타이머 시작 함수
+        function startTimer() {
+            if (!isPaused) {
+                return;
+            }
+
+            // 입력된 분과 초 가져오기
+            minutes = parseInt(document.getElementById('minutesInput').value);
+            seconds = parseInt(document.getElementById('secondsInput').value);
+
+            // 입력값이 NaN인 경우 무시
+            if (isNaN(minutes) && isNaN(seconds)) {
+                return;
+            }
+
+            // 분이 NaN인 경우 0으로 설정
+            if (isNaN(minutes)) {
+                minutes = 0;
+            }
+
+            // 초가 NaN인 경우 0으로 설정
+            if (isNaN(seconds)) {
+                seconds = 0;
+            }
+
+            // 총 초 계산
+            savedTotalSeconds = minutes * 60 + seconds;
+            remainingSeconds = savedTotalSeconds;
+            isPaused = false;
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        // 타이머 업데이트 함수
+        function updateTimer() {
+            const timerElement = document.getElementById('timer');
+
+            // 남은 시간이 0인 경우 타이머 종료
+            if (remainingSeconds === 0) {
+                clearInterval(timerInterval);
+                isPaused = true;
+                return;
+            }
+
+            // 남은 시간 1초 감소
+            remainingSeconds--;
+
+            // 남은 시간을 분과 초로 변환하여 출력
+            const formattedMinutes = padZero(Math.floor(remainingSeconds / 60));
+            const formattedSeconds = padZero(remainingSeconds % 60);
+
+            timerElement.textContent = `${formattedMinutes}:${formattedSeconds}`;
+        }
+
+        // 타이머 일시정지 함수
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            isPaused = true;
+        }
+
+        // 타이머 이어서 시작 함수
+        function resumeTimer() {
+            if (!isPaused) {
+                return;
+            }
+
+            isPaused = false;
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        // 타이머 초기화 함수
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isPaused = true;
+            minutes = 0;
+            seconds = 0;
+            savedTotalSeconds = 0;
+            remainingSeconds = 0;
+            document.getElementById('minutesInput').value = '';
+            document.getElementById('secondsInput').value = '';
+            document.getElementById('timer').textContent = '00:00';
+        }
+
+        // 숫자를 2자리로 표기하기 위한 함수
+        function padZero(number) {
+            return number < 10 ? `0${number}` : number;
+        }
+    </script>
+</body>
+</html>

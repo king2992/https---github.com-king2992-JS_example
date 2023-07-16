@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -41,4 +42,32 @@
       });
     </script>
   </body>
+=======
+<html>
+<head>
+</head>
+<body>
+  <input type="file" id="fileInput">
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+  
+    fileInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+  
+      const reader = new FileReader();
+  
+      reader.onload = function(e) {
+        const contents = e.target.result;
+        console.log('Notepad contents:', contents);
+        
+        document.body.innerHTML = contents;
+      };
+  
+      reader.readAsText(file, 'UTF-8');
+    });
+  </script>
+  
+</body>
+>>>>>>> 432db3ade7031a2b3ed80a70bc5509c2d77f2c0c
 </html>
