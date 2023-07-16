@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-
 </head>
-
 <body>
-    <script>
-        var input = document.createElement('input');
-        input.value = "myId";
-        input.readOnly = false;
-        input.setAttribute('maxlength', 10);
-        input.setAttribute('uniq-id', 1);
-        document.body.appendChild(input);
+  <input type="file" id="fileInput">
 
-        console.log(input.getAttribute('uniq-id'));
-
-    </script>
+  <script>
+    const fileInput = document.getElementById('fileInput');
+  
+    fileInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+  
+      const reader = new FileReader();
+  
+      reader.onload = function(e) {
+        const contents = e.target.result;
+        console.log('Notepad contents:', contents);
+        
+        document.body.innerHTML = contents;
+      };
+  
+      reader.readAsText(file, 'UTF-8');
+    });
+  </script>
+  
 </body>
-
 </html>

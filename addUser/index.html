@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    form {
+      margin-bottom: 16px;
+    }
+
+    input[type="text"], input[type="email"] {
+      padding: 8px;
+      width: 200px;
+    }
+
+    button {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>User Management</h1>
+
+  <form id="userForm">
+    <input type="hidden" id="userIdInput">
+    <input type="text" id="nameInput" placeholder="Name" required>
+    <input type="email" id="emailInput" placeholder="Email" required>
+    <button type="submit">Add User</button>
+  </form>
+
+  <table id="userTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <script>
+    let users = [
+      { id: 1, name: 'John', email: 'john@example.com' },
+      { id: 2, name: 'Jane', email: 'jane@example.com' },
+    ];
+
+    const userTable = document.getElementById('userTable');
+    const userForm = document.getElementById('userForm');
+    const userIdInput = document.getElementById('userIdInput');
+    const nameInput = document.getElementById('nameInput');
+    const emailInput = document.getElementById('emailInput');
+
+    function renderUsers() {
+      const tbody = userTable.querySelector('tbody');
+      tbody.innerHTML = '';
+
+      users.forEach(user => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${user.id}</td>
+          <td>${user.name}</td>
+          <td>${user.email}</td>
+          <td>
+            <button onclick="editUser(${user.id})">Edit</button>
+            <button onclick="deleteUser(${user.id})">Delete</button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function addUser(event) {
+      event.preventDefault();
+
+      const id = users.length > 0 ? users[users.length - 1].id + 1 : 1;
+      const name = nameInput.value;
+      const email = emailInput.value;
+
+      if (userIdInput.value === '') {
+        users.push({ id, name, email });
+      } else {
+        const userId = parseInt(userIdInput.value);
+        const existingUser = users.find(user => user.id === userId);
+        if (existingUser) {
+          existingUser.name = name;
+          existingUser.email = email;
+        }
+        userIdInput.value = '';
+      }
+
+      renderUsers();
+
+      nameInput.value = '';
+      emailInput.value = '';
+    }
+
+    function editUser(id) {
+      const user = users.find(user => user.id === id);
+      if (user) {
+        userIdInput.value = user.id;
+        nameInput.value = user.name;
+        emailInput.value = user.email;
+      }
+    }
+
+    function deleteUser(id) {
+      users = users.filter(user => user.id !== id);
+      renderUsers();
+    }
+
+    userForm.addEventListener('submit', addUser);
+    renderUsers();
+  </script>
+</body>
+</html>

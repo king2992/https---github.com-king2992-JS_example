@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>숫자 맞추기 게임</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 10px;
+        }
+
+        .input-group label {
+            display: inline-block;
+            width: 100px;
+            font-weight: bold;
+        }
+
+        .input-group input {
+            width: 200px;
+            padding: 5px;
+        }
+
+        .result {
+            margin-top: 10px;
+        }
+
+        .result p {
+            margin: 0;
+        }
+
+        .attempts {
+            margin-top: 20px;
+        }
+
+        .attempts p {
+            margin: 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>숫자 맞추기 게임</h1>
+        <div class="input-group">
+            <label>추측한 숫자:</label>
+            <input type="number" id="guess" placeholder="1에서 100 사이의 숫자를 입력하세요">
+        </div>
+        <button onclick="checkGuess()">확인</button>
+        <div class="result" id="result"></div>
+        <div class="attempts" id="attempts"></div>
+    </div>
+
+    <script>
+        const secretNumber = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+        const guessedNumbers = [];
+
+        function checkGuess() {
+            const guess = document.getElementById('guess').value;
+            const result = document.getElementById('result');
+            const attemptsContainer = document.getElementById('attempts');
+
+            if (guess < secretNumber) {
+                result.innerHTML = '<p>숫자가 너무 작습니다. 더 큰 숫자를 입력하세요.</p>';
+            } else if (guess > secretNumber) {
+                result.innerHTML = '<p>숫자가 너무 큽니다. 더 작은 숫자를 입력하세요.</p>';
+            } else {
+                result.innerHTML = `<p>축하합니다! 정답입니다. 시도 횟수: ${attempts}</p>`;
+                document.getElementById('guess').disabled = true;
+            }
+
+            attempts++;
+            guessedNumbers.push(guess);
+
+            // 시도한 숫자 기록 표시
+            let attemptsText = '시도한 숫자: ';
+            guessedNumbers.forEach((number, index) => {
+                attemptsText += number;
+                if (index !== guessedNumbers.length - 1) {
+                    attemptsText += ', ';
+                }
+            });
+            attemptsContainer.innerHTML = `<p>${attemptsText}</p>`;
+        }
+    </script>
+</body>
+</html>

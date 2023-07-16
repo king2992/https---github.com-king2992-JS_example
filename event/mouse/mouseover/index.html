@@ -8,13 +8,19 @@
 </head>
 
 <body>
-    <div id="myDiv" style="width: 200px; height: 200px; background-color: yellow;"></div>
+    <div class="box" style="width: 200px; height: 200px; background-color: yellow;"></div>
+    <div class="box" style="width: 200px; height: 200px; background-color: red;"></div>
+    <div class="box" style="width: 200px; height: 200px; background-color: blue;"></div>
 
     <script>
-        const div = document.getElementById('myDiv');
+        const boxes = document.querySelectorAll(".box");
 
-        div.addEventListener('mouseover', function () {
-            console.log('Mouse over the div');
+        boxes.forEach(function(box) {
+            box.addEventListener("mouseover", function(event) {
+                const bgColor = event.target.style.backgroundColor;
+                console.log("배경색:", bgColor);
+                //event.target.style.width = '100px'
+            });
         });
     </script>
 
