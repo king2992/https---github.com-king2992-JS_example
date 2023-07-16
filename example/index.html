@@ -1,22 +1,44 @@
 <!DOCTYPE html>
-<html>
-
-<head>
-
-</head>
-
-<body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>길호윤</title>
+    <style></style>
+  </head>
+  <body>
+    <div
+      class="box"
+      style="width: 200px; height: 200px; background-color: red"
+    ></div>
+    <div
+      class="box"
+      style="width: 200px; height: 200px; background-color: yellow"
+    ></div>
+    <div
+      class="box"
+      style="width: 200px; height: 200px; background-color: green"
+    ></div>
     <script>
-        var input = document.createElement('input');
-        input.value = "myId";
-        input.readOnly = false;
-        input.setAttribute('maxlength', 10);
-        input.setAttribute('uniq-id', 1);
-        document.body.appendChild(input);
+      var boxes = document.querySelectorAll(".box");
+      var colors = ["red", "yellow", "green"];
+      // console.log(boxes[0]);
+      // console.log(boxes[1]);
+      // console.log(boxes[2]);
 
-        console.log(input.getAttribute('uniq-id'));
+      boxes.forEach(function (box, index) {
+        console.log(box);
+        console.log(index);
+        box.addEventListener("mouseover", function (event) {
+          console.dir(event.target.style.backgroundColor);
+          event.target.style.backgroundColor = "black";
+        });
 
+        box.addEventListener("mouseout", function (event) {
+          console.dir(event.target.style.backgroundColor);
+        });
+      });
     </script>
-</body>
-
+  </body>
 </html>

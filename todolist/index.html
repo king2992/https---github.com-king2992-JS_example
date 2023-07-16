@@ -1,93 +1,155 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>할 일 목록</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-
-    h1 {
-      color: #333;
-      text-align: center;
-    }
-
-    .input-container {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 10px;
-    }
-
-    #todoInput {
-      padding: 8px;
-      width: 250px;
-    }
-
-    #addButton {
-      padding: 8px 16px;
-      background-color: #4caf50;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-    }
-
-    #todoList {
-      list-style-type: none;
-      padding: 0;
-    }
-
-    li {
-      margin-bottom: 5px;
-      padding: 8px;
-      background-color: #f2f2f2;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-    }
-
-    li span {
-      flex-grow: 1;
-      margin-right: 10px;
-    }
-
-    li button {
-      padding: 4px 8px;
-      background-color: #f44336;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-  <h1>할 일 목록</h1>
-
-  <div class="input-container">
-    <input type="text" id="todoInput" placeholder="할 일을 입력하세요">
-    <button id="addButton">추가</button>
-  </div>
-
-  <ul id="todoList"></ul>
-
-  <script>
-    const todoInput = document.getElementById('todoInput');
-    const addButton = document.getElementById('addButton');
-    const todoList = document.getElementById('todoList');
-
-    addButton.addEventListener('click', function() {
-      const todoText = todoInput.value;
-      if (todoText) {
-        const li = document.createElement('li');
-        li.innerHTML = `<span>${todoText}</span><button>삭제</button>`;
-        todoList.appendChild(li);
-        todoInput.value = '';
-
-        const deleteButton = li.querySelector('button');
-        deleteButton.addEventListener('click', function() {
-          li.remove();
-        });
+  <head>
+    <title>할 일 목록</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
       }
-    });
-  </script>
-</body>
+
+      h1 {
+        color: #333;
+        text-align: center;
+      }
+
+      .input-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+      }
+
+      #todoInput {
+        padding: 8px;
+        width: 250px;
+      }
+
+      #addButton {
+        padding: 8px 16px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+
+      #todoList {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 5px;
+        padding: 8px;
+        background-color: #f2f2f2;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+      }
+
+      li span {
+        flex-grow: 1;
+        margin-right: 10px;
+      }
+
+      li button {
+        padding: 4px 8px;
+        background-color: #f44336;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>할 일 목록</h1>
+
+    <div class="input-container">
+      <input type="text" id="todoInput" placeholder="할 일을 입력하세요" onkeyup="enter()"/>
+      <button id="addButton" onclick="add()" >추가</button>
+    </div>
+
+    <ul id="todoList">
+    </ul>
+    <script>
+      function add(){
+        var input = document.getElementById("todoInput");
+        var inputText = input.value;
+
+        var li = document.createElement('li');
+        li.innerHTML = `<span>${inputText}</span><button onclick="del()">삭제</button>`;
+
+        var ul = document.getElementById("todoList");
+        ul.appendChild(li);
+
+        input.value = "";
+      }
+
+      function del(){
+        event.target.parentNode.remove();
+      }
+
+      function enter(){
+        console.log(event.keyCode)
+        if(event.keyCode == 13){
+          add();
+        }
+      }
+    </script>
+    </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+    <script>
+      const todoInput = document.getElementById("todoInput");
+      const addButton = document.getElementById("addButton");
+      const todoList = document.getElementById("todoList");
+
+      addButton.addEventListener("click", function () {
+        const todoText = todoInput.value;
+        if (todoText) {
+          const li = document.createElement("li");
+          li.innerHTML = `<span>${todoText}</span><button>삭제</button>`;
+          todoList.appendChild(li);
+          todoInput.value = "";
+
+          const deleteButton = li.querySelector("button");
+          deleteButton.addEventListener("click", function () {
+            li.remove();
+          });
+        }
+      });
+    </script> -->
+  </body>
 </html>
